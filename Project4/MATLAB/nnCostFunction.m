@@ -27,8 +27,8 @@ m = size(X, 1);
          
 % You need to return the following variables correctly 
 J = 0;
-Theta1_grad = zeros(size(Theta1));
-Theta2_grad = zeros(size(Theta2));
+Theta1_grad = randInitializeWeights(input_layer_size, hidden_layer_size);
+Theta2_grad = randInitializeWeights(hidden_layer_size, num_labels);
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
@@ -62,30 +62,49 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+X = [ones(m, 1) X];
+z2 = X * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2';
+hx = sigmoid(z3);
 
+idm = eye(size(hx,2));
+y = idm(y,:);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = (sum(sum(-1*y.*log(hx)-(1-y).*log(1-hx)))/m) + (lambda*(sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2))))/(2*m);
 
 % -------------------------------------------------------------
+
+D2 = 0;
+D1 = 0;
+
+for i = 1:m
+    z2 = Theta1 * X(i,:)';
+    a2 = sigmoid(z2);
+    a2 = [1; a2];
+    z3 = Theta2 * a2;
+    a3 = sigmoid(z3);
+    % Backpropogation
+    z2=[1; z2];
+    d3 = (a3 - y(i,:)');
+    d2 = (Theta2' * d3) .* sigmoidGradient(z2);
+    d2 = d2(2:end);
+    D2 = D2 + d3 * a2';
+    D1 = D1 + d2 * X(i,:);
+end
+
+%Theta2_grad = D2/m;
+%Theta1_grad = D1/m;
+
+Theta2_grad(:,1) = D2(:,1)/m;
+Theta1_grad(:,1) = D1(:,1)/m;
+Theta2_grad(:,2:end) = D2(:,2:end)/m + (lambda/m)* Theta2(:,2:end);
+Theta1_grad(:,2:end) = D1(:,2:end)/m + (lambda/m)* Theta1(:,2:end);
 
 % =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
