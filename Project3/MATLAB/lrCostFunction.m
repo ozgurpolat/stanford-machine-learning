@@ -36,12 +36,11 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
-gz = sigmoid(X * theta);
-J = (m.^-1 * ( ((-y)' * log(gz)) - ( (1-y)' * (log(1 -gz) ) ) ) ) + (2 * m).^-1 * lambda * sum(theta(2:size(theta),:).^2);
-temp = theta;
-temp(1) = 0;
-grad = ((m.^-1) * X' * (gz - y)) + (m.^-1) * lambda * temp;
-grad(1, 1) = ((m.^-1) * X(:,1)' * (gz - y));
+z = X * theta;
+J = (-1*sum(y.*log(sigmoid(z)))-sum((1-y).*log(1-sigmoid(z))))/m + (lambda*sum(theta(2:end).^2))/(2*m);
+
+grad(1) = (X(:,1)' * (sigmoid(z) - y))/m;
+grad(2:end) = (X(:,2:end)' * (sigmoid(z) - y))/m + (lambda/m)*theta(2:end);
 % =============================================================
 
 grad = grad(:);
