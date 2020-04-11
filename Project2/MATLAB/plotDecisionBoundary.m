@@ -15,7 +15,7 @@ hold on
 if size(X, 2) <= 3
     % Only need 2 points to define a line, so choose two endpoints
     plot_x = [min(X(:,2))-2,  max(X(:,2))+2];
-    disp("plot_x"); disp(plot_x);
+
     % Calculate the decision boundary line
     plot_y = (-1./theta(3)).*(theta(2).*plot_x + theta(1));
 
@@ -29,7 +29,7 @@ else
     % Here is the grid range
     u = linspace(-1, 1.5, 50);
     v = linspace(-1, 1.5, 50);
-    disp("u"); disp(u);
+
     z = zeros(length(u), length(v));
     % Evaluate z = theta*x over the grid
     for i = 1:length(u)

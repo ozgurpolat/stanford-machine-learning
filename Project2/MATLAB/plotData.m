@@ -11,23 +11,15 @@ figure; hold on;
 %               2D plot, using the option 'k+' for the positive
 %               examples and 'ko' for the negative examples.
 %
-%  Setup the data matrix appropriately
-[~, n] = size(X);
+
 % Find Indices of Positive and Negative Examples
 pos = find(y==1); neg = find(y == 0);
 % Plot Examples
-plot(X(pos, n-1), X(pos, n), 'k+','LineWidth', 2, 'MarkerSize', 7);
-plot(X(neg, n-1), X(neg, n), 'ko', 'MarkerFaceColor', 'y','MarkerSize', 7);
+plot(X(pos, 1), X(pos, 2), 'k+','LineWidth', 2, 'MarkerSize', 7);
+plot(X(neg, 1), X(neg, 2), 'ko', 'MarkerFaceColor', 'y','MarkerSize', 7);
 
 % =========================================================================
 
 hold off;
-
-% Labels and Legend
-xlabel('Exam 1 score')
-ylabel('Exam 2 score')
-
-% Specified in plot order
-legend('Admitted', 'Not admitted')
 
 end
