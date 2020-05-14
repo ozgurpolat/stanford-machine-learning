@@ -1,5 +1,5 @@
 # stanford-machine-learning
-The following Projects are currently being completed for Stanford University Machine Learning Course. The programming assigments are in MATLAB however as an additional side project I am converting the MATLAB code to python code.
+I have completed the following Projects for Stanford University Machine Learning Course. The programming assigments are in MATLAB however as an additional side project I am converting the MATLAB code to python code.
 
 1. Programming Assignment: [Linear Regression](https://github.com/ozgurpolat/stanford-machine-learning/tree/master/Project1)
 2. Programming Assignment: [Logistic Regression](https://github.com/ozgurpolat/stanford-machine-learning/tree/master/Project2)
